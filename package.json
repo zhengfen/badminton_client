@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "core-js": "^3.6.5",
+    "element-plus": "^1.0.2-beta.65",
     "sass": "^1.35.2",
     "sass-loader": "^10.2.0",
     "vue": "^3.0.0",
