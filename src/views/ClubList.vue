@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     fetch() {
-      axios.get('/clubs').then(({ data }) => {
+      axios.get('/clubs/clubs').then(({ data }) => {
         console.log(data);
         this.clubs = data.clubs;
         this.structures = data.structures;

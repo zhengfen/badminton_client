@@ -11,6 +11,15 @@ const routes = [
     path: '/club/:id', 
     name: 'ClubShow', 
     component: () => import('@/views/ClubShow')
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index.vue'),
+    hidden: true
+  },
+  {
+    path:'/admin/teams', 
+    component: () => import('@/views/AdminTeams')
   }
 ]
 

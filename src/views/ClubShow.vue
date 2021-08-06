@@ -28,7 +28,7 @@
     <!-- teams -->
     <h5>Teams</h5>
     <div
-      class="card"
+      class="card mb-3"
       v-for="team in teams"
       :key="team.id"
     >
@@ -42,34 +42,39 @@
             <td>{{ team.group.name }}</td>
           </tr>
           <tr>
-            <td>Captain</td>
-            <td></td>
-          </tr>
-          <tr>
             <td>Members</td>
             <td>
-              <buttun
-                class="btn btn-sm btn-primary"
-                @click="show_player_add_modal(team.id)"
-              >
-                <i class="fas fa-plus"></i>
-              </buttun>
+              <ul class="list-unstyled">
+                <li
+                  v-for="team_player in team.team_players"
+                  :key="team_player.id"
+                >
+                  {{ team_player.user.first_name }}
+                  {{ team_player.user.last_name }}
+                  <span v-if="team_player.user.role">({{ team_player.user.role }})</span>
+                </li>
+              </ul>
             </td>
           </tr>
           <tr></tr>
         </table>
-
       </div>
     </div>
 
-    <el-dialog
-      title="addPlayer"
-      v-model="playerAddVisible"
-      width="30%"
-    >
-      <player-form mode="new" :team_id="team_id" />
-    </el-dialog>
+    <!-- admin -->
+    <el-button
+      type="text"
+      @click="playerDialogVisible = true"
+    >Add player</el-button>
 
+    <!-- add player modal -->
+    <el-dialog
+      title="Member"
+      v-model="playerDialogVisible"
+      width="windowwidth<800? '800':'100%'"
+    >
+      <player-form mode="new" :club_id="club.id" />
+    </el-dialog>
   </div>
 </template>
 
@@ -81,8 +86,8 @@ export default {
       club: null,
       responsables: [],
       teams: [],
-      team_id: undefined,  // team_id for player form
-      playerAddVisible: false,
+      playerDialogVisible: false, 
+      windowwidth: window.innerWidth
     }
   },
   created() {
@@ -91,7 +96,7 @@ export default {
   methods: {
     fetch() {
       const id = this.$route.params.id;
-      axios.get(`/clubs/${id}`)
+      axios.get(`/clubs/clubs/${id}`)
         .then(({ data }) => {
           console.log('club data', data);
           this.club = data.club;
@@ -99,10 +104,8 @@ export default {
           this.teams = data.teams;
         })
     },
-    show_player_add_modal(team_id) {
-      this.player_add_team_id = team_id;
-      this.playerAddVisible = true; 
-    }
+
+
   }
 }
 </script>

@@ -13,6 +13,9 @@
     "bootstrap": "^5.0.2",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.65",
+    "js-cookie": "^3.0.0",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
     "sass": "^1.35.2",
     "sass-loader": "^10.2.0",
     "vue": "^3.0.0",
@@ -40,7 +43,12 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+        "no-unused-vars": "off",
+        "no-useless-escape": "off",
+        "no-undef": "off",
+        "no-unreachable": "off"
+    }
   },
   "browserslist": [
     "> 1%",
