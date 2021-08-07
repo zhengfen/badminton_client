@@ -26,6 +26,11 @@ export default {
       // if (!window.sessionStorage.getItem("settingsUpdated"))
       // this.$store.dispatch("fetchSettings");
     }
+  }, 
+  computed:{
+    pathname(){
+      return window.location.pathname; 
+    }
   }
 }
 </script>
