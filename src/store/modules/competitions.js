@@ -17,7 +17,7 @@ const module = {
   actions:{
     async fetchLevelsAction({ commit }){
       return new Promise((resolve, reject) => {
-        axios.get('/competitions/levels').then(({ data }) => {
+        axios.get('/competitions/levels/all').then(({ data }) => {
           commit("levelsMutation", data); 
           resolve(data); 
         })
@@ -28,7 +28,7 @@ const module = {
     }, 
     async fetchGroupsAction({ commit }){
       return new Promise((resolve, reject) => {
-        axios.get('/competitions/groups').then(({ data }) => {
+        axios.get('/competitions/groups/all').then(({ data }) => {
           commit("groupsMutation", data); 
           resolve(data); 
         })

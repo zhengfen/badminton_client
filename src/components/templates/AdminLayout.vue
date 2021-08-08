@@ -5,12 +5,12 @@
     <!-- Top nav -->
     <div id="content">
       <nav class="navbar navbar-light bg-light">
-        <div class="container">
+        <div class="container-fluid">
           <!-- button to toggle sidebar -->
           <i
             class="fas fa-bars"
             id="sidebarCollapse"
-            @click="toggleActive()"
+            @click="toggleSidebarActive()"
           ></i>
         </div>
       </nav>
@@ -31,10 +31,11 @@ export default {
     }
   },
   methods:{
-    toggleActive(){
-      document.getElementById('sidebar').classList.toggle('active'); 
+    toggleSidebarActive(){
+      this.$store.commit('layout/toggleSidebarMutation'); 
     }
   }
+
 }
 </script>
 

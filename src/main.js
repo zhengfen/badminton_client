@@ -19,8 +19,15 @@ window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');
 require('bootstrap');
 
+// mixin
+import helper from '@/mixins/helper'
+// 3rd part 
 import VueSelect from 'vue-next-select'
 import 'vue-next-select/dist/index.min.css'
+
+import { VueFinalModal } from 'vue-final-modal'
+
+
 
 // local components
 import { registerComponents } from '@/plugins/register-components'
@@ -28,7 +35,9 @@ import { registerComponents } from '@/plugins/register-components'
 const app = createApp(App)
 app.use(router)
 app.use(store)
+app.mixin(helper)
 app.component('vue-select', VueSelect)
+app.component('vue-modal',VueFinalModal)
 registerComponents(app)
 app.mount('#app')
 export default app

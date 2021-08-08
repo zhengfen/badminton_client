@@ -4,7 +4,60 @@
       <div class="d-flex mb-2">
         <strong>Teams</strong>
         <!-- filters -->
-        <div class="flex-right-parent ml-auto">
+        <div class="flex-right-parent ms-auto">
+          <!-- club filter -->
+          <vue-select
+            v-model="club_id"
+            :options="clubs"
+            label-by="name"
+            value-by="id"
+            :close-on-select="true"
+            placeholder="Club"
+            :searchable="true"
+            :clear-on-select="true"
+            @selected="next_tick_fetch(1)"
+          />
+
+          <!-- level filter -->
+          <vue-select
+            v-model="level_id"
+            :options="levels"
+            label-by="name"
+            value-by="id"
+            :close-on-select="true"
+            placeholder="Level"
+            :searchable="true"
+            :clear-on-select="true"
+            @selected="next_tick_fetch(1)"
+          />
+
+          <!-- group filter -->
+          <vue-select
+            v-model="group_id"
+            :options="groups"
+            label-by="name"
+            value-by="id"
+            :close-on-select="true"
+            placeholder="Group"
+            :searchable="true"
+            :clear-on-select="true"
+            @selected="next_tick_fetch(1)"
+          />
+
+          <!-- search input -->
+          <input
+            type="text"
+            v-model="search_input"
+            placeholder="recherche"
+            v-on:keyup.enter="fetch(1)"
+            class="search-input"
+          >
+
+          <!-- add button -->
+          <button
+            class="btn btn-info btn-sm"
+            @click="showAddModal=true"
+          ><i class="fas fa-plus"></i></button>
         </div>
       </div>
       <table class="table table-hover">
@@ -33,118 +86,74 @@
             <td>
               <i
                 class="fas fa-edit text-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#teamEditModal"
                 @click="show_edit_modal(item)"
               >
               </i>
-              {{ index }}
+              <i
+                class="fas fa-trash-alt text-danger"
+                @click="show_delete_modal(item, index)"
+              ></i>
             </td>
           </tr>
         </tbody>
       </table>
 
-      <!-- Edit Modal -->
-      <div
-        class="modal fade"
-        id="teamEditModal"
-        tabindex="-1"
+      <django-paginator
+        :count="count"
+        :previous="previous"
+        :next="next"
+        :limit="limit"
+        @page_changed="fetch"
+      />
+
+      <!-- Add Modal -->
+      <vue-modal
+        v-model="showAddModal"
+        name="teamAddModal"
+        :max-width="600"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Edit team</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form
-                v-if="clubs"
-                v-on:submit.prevent="update()"
-              >
-                <div class="mb-3">
-                  <label
-                    for="name"
-                    class="form-label"
-                  >Name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    v-model="item.name"
-                  >
-                </div>
-                <div class="mb-3">
-                  <label
-                    for="reference"
-                    class="form-label"
-                  >Reference</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="reference"
-                    v-model="item.reference"
-                  >
-                </div>
-
-                <div class="mb-3">
-                  <label
-                    for="club"
-                    class="form-label"
-                  >Club</label>
-                  <vue-select
-                    v-model="selected_club"
-                    :options="clubs"
-                    label-by="name"
-                    :close-on-select="true"
-                    placeholder="Club"
-                    :searchable="true"
-                  />
-                </div>
-
-                <div class="mb-3">
-                  <label
-                    for="level"
-                    class="form-label"
-                  >Level</label>
-                  <vue-select
-                    v-model="selected_level"
-                    :options="levels"
-                    label-by="name"
-                    :close-on-select="true"
-                    placeholder="Level"
-                    :searchable="true"
-                  />
-                </div>
-
-                <div class="mb-3">
-                  <label
-                    for="group"
-                    class="form-label"
-                  >Group</label>
-                  <vue-select
-                    v-model="selected_group"
-                    :options="groups"
-                    label-by="name"
-                    :close-on-select="true"
-                    placeholder="Group"
-                    :searchable="true"
-                  />
-                </div>
-
-                <div class="text-end"> <button
-                    type="submit"
-                    class="btn btn-primary"
-                  >Submit</button></div>
-              </form>
-            </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Add Team</h3>
+            <button
+              class="btn btn-secondary btn-sm ms-auto"
+              @click="showAddModal = false"
+            >&times;</button>
+          </div>
+          <div class="card-body">
+            <team-form
+              mode="new"
+              @created="add_item"
+            />
           </div>
         </div>
-      </div>
+      </vue-modal>
+
+      <!-- Edit Modal -->
+      <vue-modal
+        v-model="showEditModal"
+        name="teamEditModal"
+        :max-width="600"
+      >
+        <div class="card">
+          <div class="card-header">
+            <h3>Modifier Team</h3>
+            <button
+              class="btn btn-secondary btn-sm ms-auto"
+              @click="showEditModal = false"
+            >&times;</button>
+          </div>
+          <div class="card-body">
+            <team-form
+              mode="edit"
+              :item_edit="item_edit"
+              @updated="update_item"
+              v-if="showEditModal"
+            />
+          </div>
+        </div>
+      </vue-modal>
+
     </template>
   </admin-layout>
 </template>
@@ -154,12 +163,22 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   data() {
     return {
+      path: '/clubs/teams',
       items: [],
-      editDialogVisible: false,
-      item: {},
-      selected_club: null,
-      selected_level: null,
-      selected_group: null,
+      item_edit: {},
+      // pagination
+      count: undefined,
+      next: undefined,
+      previous: undefined,
+      limit: 20,  // default 
+      // filter
+      club_id: null,
+      level_id: null,
+      group_id: null,
+      search_input: '',
+      // modal
+      showAddModal: false,
+      showEditModal: false
     };
   },
   computed: {
@@ -185,21 +204,50 @@ export default {
     this.fetch();
   },
   methods: {
-    fetch() {
-      axios.get('/clubs/teams').then(({ data }) => {
-        this.items = data;
+    next_tick_fetch(page) {
+      this.$nextTick(() => {
+        this.fetch(page);
       })
     },
-    show_edit_modal(item) {
-      this.item = item;
+    fetch(page) {
+      axios.get(this.url(page)).then(({ data }) => {
+        this.items = data.results;
+        this.count = data.count;
+        this.next = data.next;
+        this.previous = data.previous;
+        // limit
+        if (this.next && this.next.match(/limit=(\d+)/)) this.limit = parseInt(this.next.match(/limit=(\d+)/)[1]);
+        else if (this.previous && this.previous.match(/limit=(\d+)/)) this.limit = parseInt(this.previous.match(/limit=(\d+)/)[1]);
+        else { this.limit = 10 }
+      })
     },
-    update() {
-      if (this.selected_club) this.item.club = this.selected_club.id;
-      if (this.selected_level) this.item.level = this.selected_level.id;
-      if (this.selected_group) this.item.group = this.selected_group.id;
-      axios.patch(`/clubs/teams/${this.item.id}/`, this.item)
-      .then(({ data }) => { console.log(data) })
-      .catch(error => console.log(error.response && error.response.data )); 
+    url(page) {
+      if (!page) {
+        let query = location.search.match(/page=(\d+)/);
+        page = query ? query[1] : 1;
+      }
+      const offset = (page - 1) * this.limit;
+      let url = this.path + `?limit=${this.limit}&offset=${offset}`;
+      if (this.club_id > 0) url += `&club=${this.club_id}`;
+      if (this.level_id > 0) url += `&level=${this.level_id}`;
+      if (this.group_id > 0) url += `&group=${this.group_id}`;
+      if (this.search_input.length > 0) url += `&search=${this.search_input}`;
+      return url;
+    },
+    add_item(newItem) {
+      this.items.unshift(newItem);
+      this.showAddModel = false;
+    },
+    show_edit_modal(item) {
+      this.item_edit = item;
+      this.showEditModal = true;
+    },
+    update_item() {
+      this.showEditModal = false;
+      this.showEditModal = false;
+    }, 
+    show_delete_modal(){
+      // TODO
     }
   }
 }

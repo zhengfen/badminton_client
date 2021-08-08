@@ -17,7 +17,7 @@ const module = {
   actions:{
     async fetchClubsAction({ commit }){
       return new Promise((resolve, reject) => {
-        axios.get('/clubs/clubs').then(({ data }) => {
+        axios.get('/clubs/clubs/all').then(({ data }) => {
           commit("clubsMutation", data); 
           resolve(data); 
         })

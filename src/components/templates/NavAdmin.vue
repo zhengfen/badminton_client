@@ -1,5 +1,5 @@
 <template>
-  <nav id="sidebar">
+  <nav id="sidebar" :class="{ active: sidebarActive }">
     <div class="sidebar-header">
       <a href="/">
         <h3>Badminton Admin</h3>
@@ -28,8 +28,8 @@ export default {
     }
   }, 
   computed:{
-    pathname(){
-      return window.location.pathname; 
+    sidebarActive(){
+      return this.$store.state.layout.sidebarActive; 
     }
   }
 }

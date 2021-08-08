@@ -20,6 +20,7 @@
     "sass": "^1.35.2",
     "sass-loader": "^10.2.0",
     "vue": "^3.0.0",
+    "vue-final-modal": "^3.4.0",
     "vue-next-select": "^2.9.0",
     "vue-router": "^4.0.6",
     "vuex": "^4.0.2"
