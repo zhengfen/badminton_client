@@ -13,7 +13,10 @@ import './icons' // icon
 
 window.axios = require("axios");
 window.axios.defaults.baseURL = location.hostname == 'localhost' ? 'http://localhost:3000/' : 'http://localhost:3000/';
-
+const token = localStorage.getItem("token");
+if (token) {
+    window.axios.defaults.headers.common["Authorization"] = 'Token ' + JSON.parse(token);
+}
 
 window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');

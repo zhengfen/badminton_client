@@ -4,7 +4,19 @@ const routes = [
   {
     path: '/',
     name: 'Root',
-    component: () => import('@/views/ClubList'), 
+    component: () => import('@/views/ClubIndex'), 
+    // beforeEnter: auth,  // this.$router.push({ name: 'Home' }); can only push to routes without beforeEnter; check in beforeCreate() 
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: () => import('@/views/ClubIndex'), 
+    // beforeEnter: auth,  // this.$router.push({ name: 'Home' }); can only push to routes without beforeEnter; check in beforeCreate() 
+  },
+  {
+    path: '/clubs',
+    name: 'Clubs',
+    component: () => import('@/views/ClubIndex'), 
     // beforeEnter: auth,  // this.$router.push({ name: 'Home' }); can only push to routes without beforeEnter; check in beforeCreate() 
   },
   {
@@ -14,11 +26,13 @@ const routes = [
   },
   {
     path: '/login',
-    component: () => import('@/views/login/index.vue'),
+    name: 'Login',
+    component: () => import('@/views/LoginPage'),
     hidden: true
   },
   {
     path:'/admin/teams', 
+    name:'AdminTeams',
     component: () => import('@/views/AdminTeams')
   }
 ]

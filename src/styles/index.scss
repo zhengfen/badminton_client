@@ -317,3 +317,27 @@ aside {
     align-items: center;
 }
 
+.vfm__content {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.delete_modal{
+    background: white; 
+    width: 400px;
+    padding: 1.6rem;
+}
+
+/* Login page */
+.screen-container {
+    width: 100vw; 
+    height: 100vh;  
+    display: flex; 
+    .center-container{
+        flex-grow: 1;        
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+    }
+}

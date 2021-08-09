@@ -85,7 +85,7 @@
             <td>{{ getGroupNameById(item.group) }}</td>
             <td>
               <i
-                class="fas fa-edit text-primary"
+                class="fas fa-edit text-primary me-2"
                 @click="show_edit_modal(item)"
               >
               </i>
@@ -110,9 +110,11 @@
       <vue-modal
         v-model="showAddModal"
         name="teamAddModal"
-        :max-width="600"
       >
-        <div class="card">
+        <div
+          class="card"
+          style="width:600px;"
+        >
           <div class="card-header">
             <h3>Add Team</h3>
             <button
@@ -133,9 +135,11 @@
       <vue-modal
         v-model="showEditModal"
         name="teamEditModal"
-        :max-width="600"
       >
-        <div class="card">
+        <div
+          class="card"
+          style="width:600px;"
+        >
           <div class="card-header">
             <h3>Modifier Team</h3>
             <button
@@ -154,6 +158,31 @@
         </div>
       </vue-modal>
 
+      <!-- Delete Modal -->
+      <vue-modal v-model="showDeleteModal">
+        <div
+          class="card"
+          style="width:600px;"
+        >
+          <div class="card-header">
+            <h3>Delete Team</h3>
+            <button
+              class="btn btn-secondary btn-sm ms-auto"
+              @click="showDeleteModal = false"
+            >&times;</button>
+          </div>
+          <div class="card-body">
+            <p>Please confirm</p>
+            <div class="text-end">
+              <button
+                class="btn btn-primary"
+                @click="delete_item"
+              >Confirm</button>
+            </div>
+          </div>
+        </div>
+      </vue-modal>
+
     </template>
   </admin-layout>
 </template>
@@ -166,6 +195,8 @@ export default {
       path: '/clubs/teams',
       items: [],
       item_edit: {},
+      id_delete: null,
+      index_delete: null,
       // pagination
       count: undefined,
       next: undefined,
@@ -178,7 +209,8 @@ export default {
       search_input: '',
       // modal
       showAddModal: false,
-      showEditModal: false
+      showEditModal: false,
+      showDeleteModal: false
     };
   },
   computed: {
@@ -245,9 +277,22 @@ export default {
     update_item() {
       this.showEditModal = false;
       this.showEditModal = false;
-    }, 
-    show_delete_modal(){
-      // TODO
+    },
+    show_delete_modal(item, index) {
+      this.id_delete = item.id;
+      this.index_delete = index;
+      this.showDeleteModal = true;
+    },
+    delete_item() {
+      if (this.id_delete) {
+        axios.delete(this.path + '/' + this.id_delete).then(({ data }) => {
+          console.log(data);
+          this.items.splice(this.index_delete, 1);
+          this.id_delete = null;
+          this.index_delete = null;
+          this.showDeleteModal = false;
+        }).catch(error => console.log(error.response && error.response.data));
+      }
     }
   }
 }
