@@ -25,15 +25,31 @@ const routes = [
     component: () => import('@/views/ClubShow')
   },
   {
+    path: '/team/:id', 
+    name: 'TeamShow', 
+    component: () => import('@/views/TeamShow')
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/LoginPage'),
     hidden: true
   },
+  // admin 
+  {
+    path:'/admin/clubs', 
+    name:'AdminClubs',
+    component: () => import('@/views/AdminClubs')
+  },
   {
     path:'/admin/teams', 
     name:'AdminTeams',
     component: () => import('@/views/AdminTeams')
+  }, 
+  {
+    path:'/admin/players', 
+    name:'AdminPlayers',
+    component: () => import('@/views/AdminPlayers')
   }
 ]
 

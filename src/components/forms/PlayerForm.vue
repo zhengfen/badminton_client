@@ -43,7 +43,7 @@
         id="birthday"
         type="date"
         class="form-control"
-        v-model="item.date"
+        v-model="item.birthday"
         required
       >
     </div>
@@ -72,7 +72,9 @@
 </template>
 
 <script>  
+import form from '@/mixins/form';
 export default {
+  mixins: [form],
   props: {
     club_id: {
       type: Number,
@@ -81,16 +83,10 @@ export default {
   },
   data() {
     return {
-      item: {}
+      path: '/clubs/players'
     }
-  }, 
-  methods:{
-    add(){
-      this.item.club_id = this.club_id; 
-      axios.post('/clubs/players').then(({data}) => {
-        console.log(data); 
-      })
-    }
+  },
+  methods: {
   }
 }
 </script>

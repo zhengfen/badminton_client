@@ -30,7 +30,7 @@ import 'vue-next-select/dist/index.min.css'
 
 import { VueFinalModal } from 'vue-final-modal'
 
-
+import i18n from './locales'
 
 // local components
 import { registerComponents } from '@/plugins/register-components'
@@ -38,6 +38,7 @@ import { registerComponents } from '@/plugins/register-components'
 const app = createApp(App)
 app.use(router)
 app.use(store)
+app.use(i18n)
 app.mixin(helper)
 app.component('vue-select', VueSelect)
 app.component('vue-modal',VueFinalModal)

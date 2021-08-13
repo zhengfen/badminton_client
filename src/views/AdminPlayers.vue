@@ -2,7 +2,7 @@
   <admin-layout>
     <template v-slot:content>
       <div class="d-flex mb-2">
-        <strong>{{ $t('Teams') }} </strong>
+        <strong>{{ $t('Players') }}</strong>
         <!-- filters -->
         <div class="flex-right-parent ms-auto">
           <!-- club filter -->
@@ -13,32 +13,6 @@
             value-by="id"
             :close-on-select="true"
             placeholder="Club"
-            :searchable="true"
-            :clear-on-select="true"
-            @selected="next_tick_fetch(1)"
-          />
-
-          <!-- level filter -->
-          <vue-select
-            v-model="level_id"
-            :options="levels"
-            label-by="name"
-            value-by="id"
-            :close-on-select="true"
-            placeholder="Level"
-            :searchable="true"
-            :clear-on-select="true"
-            @selected="next_tick_fetch(1)"
-          />
-
-          <!-- group filter -->
-          <vue-select
-            v-model="group_id"
-            :options="groups"
-            label-by="name"
-            value-by="id"
-            :close-on-select="true"
-            placeholder="Group"
             :searchable="true"
             :clear-on-select="true"
             @selected="next_tick_fetch(1)"
@@ -64,11 +38,14 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>{{ $t('Name') }}</th>
-            <th>{{ $t('Reference') }}</th>
+            <th>{{ $t('First name') }}</th>
+            <th>{{ $t('Last name') }}</th>
+            <th>{{ $t('Sex') }}</th>
+            <th>{{ $t('Birthday') }}</th>
+            <th>{{ $t('Email') }}</th>
             <th>{{ $t('Club') }}</th>
-            <th>{{ $t('Level') }}</th>
-            <th>{{ $t('Group') }}</th>
+            <th>{{ $t('Teams') }}</th>
+            <th>{{ $t('Licence') }}</th>
             <th>{{ $t('Action') }}</th>
           </tr>
         </thead>
@@ -78,11 +55,20 @@
             :key="item.id"
           >
             <td>{{ item.id }}</td>
-            <td>{{ item.name}}</td>
-            <td>{{ item.reference}}</td>
+            <td>{{ item.first_name }}</td>
+            <td>{{ item.last_name }}</td>
+            <td>{{ item.sex }}</td>
+            <td>{{ item.birthday }}</td>
+            <td>{{ item.email }}</td>
             <td>{{ getClubNameById(item.club) }}</td>
-            <td>{{ getLevelNameById(item.level) }}</td>
-            <td>{{ getGroupNameById(item.group) }}</td>
+            <td> 
+              <div
+                class="me-1"
+                v-for="team in item.teams"
+                :key="team.id"
+              >{{ team.team.name }} - {{ getLevelNameById(team.team.level) }} <span v-if="team.role">{{ team.role }}</span></div>
+            </td>
+            <td>{{ item.licence }}</td>
             <td>
               <i
                 class="fas fa-edit text-primary me-2"
@@ -107,22 +93,20 @@
       />
 
       <!-- Add Modal -->
-      <vue-modal
-        v-model="showAddModal"
-      >
+      <vue-modal v-model="showAddModal">
         <div
           class="card"
           style="width:600px;"
         >
           <div class="card-header">
-            <h3>{{ $t('Add') }} {{ $t('Team') }}</h3>
+            <h3>{{ $t('Add') }} {{ $t('Player') }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showAddModal = false"
             >&times;</button>
           </div>
           <div class="card-body">
-            <team-form
+            <player-form
               mode="new"
               @created="add_item"
             />
@@ -131,22 +115,20 @@
       </vue-modal>
 
       <!-- Edit Modal -->
-      <vue-modal
-        v-model="showEditModal"
-      >
+      <vue-modal v-model="showEditModal">
         <div
           class="card"
           style="width:600px;"
         >
           <div class="card-header">
-            <h3>{{ $t('Edit') }} {{ $t('Team') }}</h3>
+            <h3>{{ $t('Edit') }} {{ $t('Player') }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showEditModal = false"
             >&times;</button>
           </div>
           <div class="card-body">
-            <team-form
+            <player-form
               mode="edit"
               :item_edit="item_edit"
               @updated="update_item"
@@ -163,7 +145,7 @@
           style="width:600px;"
         >
           <div class="card-header">
-            <h3> {{ $t('Delete') }}  {{ $t('Team') }}</h3>
+            <h3>{{ $t('Delete') }} {{ $t('Player') }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showDeleteModal = false"
@@ -175,7 +157,7 @@
               <button
                 class="btn btn-primary"
                 @click="delete_item"
-              > {{ $t('Confirm') }}</button>
+              >{{ $t('Confirm') }}</button>
             </div>
           </div>
         </div>
@@ -192,11 +174,9 @@ export default {
   mixins: [collection],
   data() {
     return {
-      path: '/clubs/teams',
+      path: '/clubs/players',
       // filter
       club_id: null,
-      level_id: null,
-      group_id: null,
     };
   },
   computed: {
@@ -205,20 +185,17 @@ export default {
     ]),
     ...mapState('competitions', [
       'levels',
-      'groups',
     ]),
     ...mapGetters('clubs', [
       'getClubNameById'
     ]),
     ...mapGetters('competitions', [
       'getLevelNameById',
-      'getGroupNameById'
     ])
   },
   created() {
     this.$store.dispatch('clubs/fetchClubsAction');
     this.$store.dispatch('competitions/fetchLevelsAction');
-    this.$store.dispatch('competitions/fetchGroupsAction');
   },
   methods: {
     url(page) {
@@ -229,8 +206,6 @@ export default {
       const offset = (page - 1) * this.limit;
       let url = this.path + `?limit=${this.limit}&offset=${offset}`;
       if (this.club_id > 0) url += `&club=${this.club_id}`;
-      if (this.level_id > 0) url += `&level=${this.level_id}`;
-      if (this.group_id > 0) url += `&group=${this.group_id}`;
       if (this.search_input.length > 0) url += `&search=${this.search_input}`;
       return url;
     }

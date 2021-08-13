@@ -84,26 +84,13 @@
 </template>
 
 <script>
+import form from '@/mixins/form';
 import { mapState } from 'vuex'
 export default {
-  props: {
-    mode: {
-      type: String,
-      default: 'new'
-    },
-    item_edit: {
-      type: Object,
-      required: false
-    }
-  },
+  mixins: [form],
   data() {
     return {
-      item: {},
-    }
-  },
-  created() {
-    if (this.mode == 'edit') {
-      this.item = this.item_edit;
+      path:'/clubs/teams/',
     }
   },
   computed: {
@@ -116,16 +103,7 @@ export default {
     ]),
   },
   methods: {
-    add() {
-      axios.post(`/clubs/teams/`, this.item)
-        .then(({ data }) => { this.$emit('created', data); })
-        .catch(error => console.log(error.response && error.response.data));
-    },
-    update() {
-      axios.patch(`/clubs/teams/${this.item.id}/`, this.item)
-        .then(({ data }) => { this.$emit('updated', data); })
-        .catch(error => console.log(error.response && error.response.data));
-    },
+
   }
 }
 </script>

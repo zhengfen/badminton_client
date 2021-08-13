@@ -1,7 +1,7 @@
 <template>
   <app-layout>
     <template
-      v-if="club"
+      v-if="loaded"
       v-slot:content
     >
       <h4>{{ club.name }}</h4>
@@ -37,10 +37,14 @@
         :key="team.id"
       >
         <div class="card-header">
-          {{ team.name }}
+          <router-link :to="{ name: 'TeamShow', params: { id: team.id }}">{{ team.name }}</router-link>
         </div>
         <div class="card-body">
-          <table class="tab">
+          <table>
+            <tr>
+              <td width="200">Level</td>
+              <td>{{ team.level && team.level.name }}</td>
+            </tr>
             <tr>
               <td>Group</td>
               <td>{{ team.group && team.group.name }}</td>
@@ -73,11 +77,10 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      loaded: false,
       club: null,
       responsables: [],
       teams: [],
-      playerDialogVisible: false,
-      windowwidth: window.innerWidth
     }
   },
   created() {
@@ -92,10 +95,9 @@ export default {
           this.club = data.club;
           this.responsables = data.responsables;
           this.teams = data.teams;
+          this.loaded = true;
         })
     },
-
-
   }
 }
 </script>

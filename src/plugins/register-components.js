@@ -26,7 +26,6 @@ export const registerComponents = app => requireComponent.keys().forEach(fileNam
     )
   )
 
-  console.log(componentName); 
 
   // Register component globally
   app.component(

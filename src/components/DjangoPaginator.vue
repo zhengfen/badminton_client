@@ -57,6 +57,7 @@
         rel="next"
         @click.prevent="page++"
         class="btn btn-info btn-sm"
+        style="margin-right:3px;"
       >
         ›
       </a>
