@@ -5,10 +5,10 @@
       style="margin-bottom:0"
     >
       <h1>Badminton Clubs</h1>
-      <p>A web application made to learn django and vue3</p>
+      <p>A web application made to practice django and vue3</p>
     </div>
     <nav-app />
-    <div class="container" style="margin-top:30px" name="content">
+    <div class="container" style="padding-top:30px; padding-bottom: 30px;" name="content">
       <slot name="content"></slot>
     </div>
   </div>

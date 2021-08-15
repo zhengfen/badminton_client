@@ -30,6 +30,12 @@ import 'vue-next-select/dist/index.min.css'
 
 import { VueFinalModal } from 'vue-final-modal'
 
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+const toastOptions = {
+  // You can set your default options here
+};
+// localization
 import i18n from './locales'
 
 // local components
@@ -40,8 +46,11 @@ app.use(router)
 app.use(store)
 app.use(i18n)
 app.mixin(helper)
+// 3rd part
 app.component('vue-select', VueSelect)
 app.component('vue-modal',VueFinalModal)
+app.use(Toast, toastOptions)
+
 registerComponents(app)
 app.mount('#app')
 export default app

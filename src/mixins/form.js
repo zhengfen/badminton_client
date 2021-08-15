@@ -22,12 +22,15 @@ export default {
   },
   methods: {
     add() {
-      axios.post( this.path, this.item)
-        .then(({ data }) => { this.$emit('created', data); })
+      axios.post(this.path, this.item)
+        .then(({ data }) => { 
+          this.$emit('created', data); 
+          this.item = {};
+        })
         .catch(error => console.log(error.response && error.response.data));
     },
     update() {
-      axios.patch( this.path + `${this.item.id}/`, this.item)
+      axios.patch(this.path + `${this.item.id}/`, this.item)
         .then(({ data }) => { this.$emit('updated', data); })
         .catch(error => console.log(error.response && error.response.data));
     },

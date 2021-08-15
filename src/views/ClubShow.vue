@@ -50,16 +50,16 @@
               <td>{{ team.group && team.group.name }}</td>
             </tr>
             <tr>
-              <td>Members</td>
+              <td>Players</td>
               <td>
                 <ul class="list-unstyled">
                   <li
                     v-for="team_player in team.team_players"
                     :key="team_player.id"
                   >
-                    {{ team_player.user.first_name }}
-                    {{ team_player.user.last_name }}
-                    <span v-if="team_player.user.role">({{ team_player.user.role }})</span>
+                    {{ team_player.player.first_name }}
+                    {{ team_player.player.last_name }}
+                    <span v-if="team_player.position">({{ getPositionNameById(team_player.position) }})</span>
                   </li>
                 </ul>
               </td>
@@ -74,6 +74,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -84,7 +85,13 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch('clubs/fetchPositionsAction'); 
     this.fetch();
+  },
+  computed:{
+    ...mapGetters('clubs', [
+      'getPositionNameById'
+    ])
   },
   methods: {
     fetch() {

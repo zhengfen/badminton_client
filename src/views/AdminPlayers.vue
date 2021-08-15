@@ -61,12 +61,12 @@
             <td>{{ item.birthday }}</td>
             <td>{{ item.email }}</td>
             <td>{{ getClubNameById(item.club) }}</td>
-            <td> 
+            <td @click="show_team_modal(item)">
               <div
-                class="me-1"
+                class="pointer"
                 v-for="team in item.teams"
-                :key="team.id"
-              >{{ team.team.name }} - {{ getLevelNameById(team.team.level) }} <span v-if="team.role">{{ team.role }}</span></div>
+                :key="team.id"                
+              >{{ team.team.name }} - {{ getLevelNameById(team.team.level) }} <span v-if="team.position">{{ getPositionNameById(team.position) }}</span></div>
             </td>
             <td>{{ item.licence }}</td>
             <td>
@@ -91,6 +91,25 @@
         :limit="limit"
         @page_changed="fetch"
       />
+      <!-- Team Modal-->
+      <vue-modal v-model="showTeamModal">
+        <div
+          class="card"
+          style="width:600px;"
+        >
+          <div class="card-header">
+            <h3>{{ $t('Associated teams') }}</h3>
+            <button
+              class="btn btn-secondary btn-sm ms-auto"
+              @click="showTeamModal = false"
+            >&times;</button>
+          </div>
+
+          <div class="card-body">
+            <player-teams :player="item_edit" v-if="showTeamModal" />
+          </div>
+        </div>
+      </vue-modal>
 
       <!-- Add Modal -->
       <vue-modal v-model="showAddModal">
@@ -177,6 +196,7 @@ export default {
       path: '/clubs/players',
       // filter
       club_id: null,
+      showTeamModal: false,
     };
   },
   computed: {
@@ -187,7 +207,8 @@ export default {
       'levels',
     ]),
     ...mapGetters('clubs', [
-      'getClubNameById'
+      'getClubNameById', 
+      'getPositionNameById',
     ]),
     ...mapGetters('competitions', [
       'getLevelNameById',
@@ -195,6 +216,7 @@ export default {
   },
   created() {
     this.$store.dispatch('clubs/fetchClubsAction');
+    this.$store.dispatch('clubs/fetchPositionsAction'); 
     this.$store.dispatch('competitions/fetchLevelsAction');
   },
   methods: {
@@ -208,6 +230,10 @@ export default {
       if (this.club_id > 0) url += `&club=${this.club_id}`;
       if (this.search_input.length > 0) url += `&search=${this.search_input}`;
       return url;
+    },
+    show_team_modal(item) {
+      this.item_edit = item;
+      this.showTeamModal = true;
     }
   }
 }

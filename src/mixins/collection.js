@@ -53,7 +53,7 @@ export default {
     // add 
     add_item(newItem) {
       this.items.unshift(newItem);
-      this.showAddModel = false;
+      this.showAddModal = false;
     },
     // edit
     show_edit_modal(item) {
