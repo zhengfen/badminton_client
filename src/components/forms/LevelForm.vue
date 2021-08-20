@@ -34,7 +34,7 @@
             maxlength="160"
             class="form-control"            
             :id="'name_'+locale"
-            v-model="item.name[locale]"
+            v-model="item['name_'+locale]"
           >
         </div>
       </div>
@@ -53,7 +53,7 @@ export default {
   mixins: [form],
   data() {
     return {
-      path: '/competitions/levels',
+      path: '/competitions/levels/',
       item: {
         name: {}
       }, 

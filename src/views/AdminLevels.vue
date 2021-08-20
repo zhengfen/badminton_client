@@ -37,7 +37,11 @@
             :key="item.id"
           >
             <td>{{ item.id }}</td>
-            <td>{{ item.name}}</td>
+            <td>{{ item.name}}
+              <div v-for="locale of $i18n.availableLocales" :key="locale">
+                {{ locale }}: {{ item['name_' + locale]}}
+              </div>
+            </td>
             <td>
               <i
                 class="fas fa-edit text-primary me-2"

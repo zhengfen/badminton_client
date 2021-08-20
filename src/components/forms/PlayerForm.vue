@@ -83,7 +83,7 @@ export default {
   },
   data() {
     return {
-      path: '/clubs/players'
+      path: '/clubs/players/'
     }
   },
   methods: {
