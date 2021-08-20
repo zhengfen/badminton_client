@@ -50,6 +50,11 @@ const routes = [
     path:'/admin/players', 
     name:'AdminPlayers',
     component: () => import('@/views/AdminPlayers')
+  }, 
+  {
+    path:'/admin/levels', 
+    name:'AdminLevels', 
+    component: () => import('@/views/AdminLevels')
   }
 ]
 

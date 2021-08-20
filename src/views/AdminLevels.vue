@@ -2,7 +2,7 @@
   <admin-layout>
     <template v-slot:content>
       <div class="d-flex mb-2">
-        <strong>{{ $t('Clubs')}}</strong>
+        <strong>{{ $t('Levels')}}</strong>
 
         <!-- filters -->
         <div class="flex-right-parent ms-auto">
@@ -28,7 +28,6 @@
           <tr>
             <th>ID</th>
             <th>{{ $t('Name') }}</th>
-            <th>{{ $t('City') }}</th>
             <th>{{ $t('Action') }}</th>
           </tr>
         </thead>
@@ -39,7 +38,6 @@
           >
             <td>{{ item.id }}</td>
             <td>{{ item.name}}</td>
-            <td>{{ item.city}}</td>
             <td>
               <i
                 class="fas fa-edit text-primary me-2"
@@ -79,7 +77,7 @@
             >&times;</button>
           </div>
           <div class="card-body">
-            <club-form
+            <level-form
               mode="new"
               @created="add_item"
             />
@@ -103,7 +101,7 @@
             >&times;</button>
           </div>
           <div class="card-body">
-            <club-form
+            <level-form
               mode="edit"
               :item_edit="item_edit"
               @updated="update_item"
@@ -147,7 +145,7 @@ export default {
   mixins: [collection],
   data() {
     return {
-      path: '/clubs/clubs',
+      path: '/competitions/levels',
     }
   }
 }

@@ -6,7 +6,7 @@
       <label
         for="name"
         class="form-label"
-      >Name</label>
+      >{{ $t('Name')}}</label>
       <input
         type="text"
         class="form-control"
@@ -14,11 +14,12 @@
         v-model="item.name"
       >
     </div>
+
     <div class="mb-3">
       <label
         for="city"
         class="form-label"
-      >City</label>
+      >{{ $t('City')}}</label>
       <input
         type="text"
         class="form-control"
@@ -30,7 +31,7 @@
     <div class="text-end"> <button
         type="submit"
         class="btn btn-primary"
-      >Submit</button></div>
+      >{{ $t('Submit')}}</button></div>
   </form>
 </template>
 

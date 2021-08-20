@@ -12,15 +12,15 @@
     <ul class="list-unstyled components">
       <li>
         <a
-          href="#clubsSubmenu"
-          data-toggle="collapse"
+          data-bs-target="#clubsSubmenu"
+          data-bs-toggle="collapse"
           aria-expanded="false"
           class="dropdown-toggle"
         >{{ $t("Clubs") }}</a>
         <ul
           class="collapse list-unstyled"
           :class="{ show: ['/admin/clubs', '/admin/teams', '/admin/players'].includes(pathname)}"
-          id="ordersSubmenu"
+          id="clubsSubmenu"
         >
           <li>
             <a
@@ -50,6 +50,30 @@
           </li>
         </ul>
       </li>
+
+      <li>
+        <a
+          data-bs-target="#competitionsSubmenu"
+          data-bs-toggle="collapse"
+          aria-expanded="false"
+          class="dropdown-toggle"
+        >{{ $t("Competitions") }}</a>
+        <ul
+          class="collapse list-unstyled"
+          :class="{ show: ['/admin/levels', '/admin/groups', '/admin/competitions'].includes(pathname)}"
+          id="competitionsSubmenu"
+        >
+          <li>
+            <a
+              href="/admin/levels"
+              :class="{'active': ['/admin/levels'].includes(pathname)}"
+            >
+              {{ $t("Levels") }}
+            </a>
+          </li>
+        </ul>
+      </li>
+
     </ul>
 
   </nav>
