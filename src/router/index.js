@@ -47,6 +47,11 @@ const routes = [
     component: () => import('@/views/AdminTeams')
   }, 
   {
+    path:'/admin/positions', 
+    name:'AdminPositions',
+    component: () => import('@/views/AdminPositions')
+  }, 
+  {
     path:'/admin/players', 
     name:'AdminPlayers',
     component: () => import('@/views/AdminPlayers')

@@ -5,7 +5,7 @@
   >
     <div class="sidebar-header">
       <a href="/">
-        <h3>Badminton Admin</h3>
+        <h3>Badminton</h3>
       </a>
     </div>
 
@@ -19,7 +19,7 @@
         >{{ $t("Clubs") }}</a>
         <ul
           class="collapse list-unstyled"
-          :class="{ show: ['/admin/clubs', '/admin/teams', '/admin/players'].includes(pathname)}"
+          :class="{ show: ['/admin/clubs', '/admin/teams', '/admin/positions', '/admin/players'].includes(pathname)}"
           id="clubsSubmenu"
         >
           <li>
@@ -37,6 +37,15 @@
               :class="{'active': ['/admin/teams'].includes(pathname)}"
             >
               {{ $t("Teams") }}
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/admin/positions"
+              :class="{'active': ['/admin/positions'].includes(pathname)}"
+            >
+              {{ $t("Position") }}
             </a>
           </li>
 
