@@ -343,5 +343,9 @@ aside {
 }
 
 .navbar-dark{
-    background: #2a3f54;
+    background: #ac1416; // blue #2969b0;
+    color: white;
+    .nav-item a{
+        color: white !important; 
+    }
 }

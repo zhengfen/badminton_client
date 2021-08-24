@@ -45,7 +45,7 @@
               href="/admin/positions"
               :class="{'active': ['/admin/positions'].includes(pathname)}"
             >
-              {{ $t("Position") }}
+              {{ $t("Positions") }}
             </a>
           </li>
 

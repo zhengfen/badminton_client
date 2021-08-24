@@ -8,7 +8,7 @@
       <!-- responsables -->
       <div class="card mb-5">
         <div class="card-header">
-          Responsables
+          {{ $t('Responsibles') }}
         </div>
         <div class="card-body">
           <table class="table">
@@ -30,7 +30,7 @@
       </div>
 
       <!-- teams -->
-      <h5>Teams</h5>
+      <h5>{{ $t('Teams') }}</h5>
       <div
         class="card mb-3"
         v-for="team in teams"
@@ -42,15 +42,15 @@
         <div class="card-body">
           <table>
             <tr>
-              <td width="200">Level</td>
-              <td>{{ team.level && team.level.name }}</td>
+              <td width="200">{{ $t('Level') }}</td>
+              <td>{{ team.level && trans(team.level.name) }}</td>
             </tr>
             <tr>
-              <td>Group</td>
+              <td>{{ $t('Group') }}</td>
               <td>{{ team.group && team.group.name }}</td>
             </tr>
             <tr>
-              <td>Players</td>
+              <td>{{ $t('Players') }}</td>
               <td>
                 <ul class="list-unstyled">
                   <li
@@ -59,7 +59,7 @@
                   >
                     {{ team_player.player.first_name }}
                     {{ team_player.player.last_name }}
-                    <span v-if="team_player.position">({{ getPositionNameById(team_player.position) }})</span>
+                    <span v-if="team_player.position">({{ trans(getPositionNameById(team_player.position)) }})</span>
                   </li>
                 </ul>
               </td>

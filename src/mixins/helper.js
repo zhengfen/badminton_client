@@ -23,6 +23,11 @@ export default {
       const lo = locale ? locale: this.$i18n.locale; 
       let translated = value[lo]; // this.$i18n.locale
       if (typeof translated ==='string' ) return translated; 
+      for (const lo of this.$i18n.availableLocales) {
+        let translated = value[lo]; // this.$i18n.locale
+        if (typeof translated === 'string' && translated.length > 0) return translated;
+      }
+      return '';
     },
     dateDisplay(date) {
       if (date) return moment(date, 'YYYY-MM-DD h:mm:ss').format('DD.MM.YYYY');

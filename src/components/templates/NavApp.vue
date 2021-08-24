@@ -26,7 +26,7 @@
               :to="{ name: 'Home' }"
               class="nav-link"
             >
-              Home
+              {{ $t('Home')}}
             </router-link>
           </li>
 
@@ -35,7 +35,7 @@
               :to="{ name: 'Clubs' }"
               class="nav-link"
             >
-              Clubs
+              {{ $t('Clubs')}}
             </router-link>
           </li>
 
@@ -94,11 +94,14 @@
                 :to="{ name: 'Login' }"
                 class="nav-link"
               >
-                Login
+                {{ $t('Login')}}
               </router-link>
             </li>
           </template>
         </ul>
+
+        <locale-selection class="me-4" />
+        <!-- search input -->
         <form class="d-flex">
           <input
             class="form-control me-2"
@@ -107,7 +110,7 @@
             aria-label="Search"
           >
           <button
-            class="btn btn-outline-success"
+            class="btn btn-outline-light"
             type="submit"
           >Search</button>
         </form>

@@ -33,6 +33,7 @@ export default {
         .catch(error => console.log(error.response && error.response.data));
     },
     update() {
+      // use put instead of patch,  TypeError: update() got an unexpected keyword argument 'partial'
       axios.put(this.path + `${this.item.id}/`, this.item)
         .then(({ data }) => { this.$emit('updated', data); })
         .catch(error => console.log(error.response && error.response.data));

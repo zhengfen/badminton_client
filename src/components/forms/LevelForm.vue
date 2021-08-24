@@ -34,7 +34,7 @@
             maxlength="160"
             class="form-control"            
             :id="'name_'+locale"
-            v-model="item['name_'+locale]"
+            v-model="item.name[locale]"
           >
         </div>
       </div>
@@ -58,6 +58,12 @@ export default {
         name: {}
       }, 
       active_locale: this.$i18n.locale,
+    }
+  }, 
+  methods:{
+    init_item(){
+      this.item = this.item_edit; 
+      if (this.item.name == null) this.item.name = {}; 
     }
   }
 }

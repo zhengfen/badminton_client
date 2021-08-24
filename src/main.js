@@ -9,7 +9,7 @@ import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 import "@/styles/index.scss"; // global css
 import './icons' // icon
 
-
+window.moment = require('moment');
 
 window.axios = require("axios");
 window.axios.defaults.baseURL = location.hostname == 'localhost' ? 'http://localhost:3000/' : 'http://localhost:3000/';

@@ -12,6 +12,8 @@
             id="sidebarCollapse"
             @click="toggleSidebarActive()"
           ></i>
+
+          <locale-selection />
         </div>
       </nav>
       <div
