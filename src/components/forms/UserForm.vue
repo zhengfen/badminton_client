@@ -5,7 +5,7 @@
   >
     <!-- if club_id is not defined by props, then select club-->
     <div class="mb-3">
-      <label for="first_name">First name <span class="text-danger">*</span></label>
+      <label for="first_name">{{ $t('First name')}} <span class="text-danger">*</span></label>
       <input
         id="first_name"
         type="text"
@@ -16,7 +16,7 @@
     </div>
 
     <div class="mb-3">
-      <label for="last_name">Family Name <span class="text-danger">*</span></label>
+      <label for="last_name">{{ $t('Family name')}}  <span class="text-danger">*</span></label>
       <input
         id="last_name"
         type="text"
@@ -27,7 +27,7 @@
     </div>
 
     <div class="mb-3">
-      <label for="email">E-mail <span class="text-danger">*</span></label>
+      <label for="email">{{ $t('Email')}} <span class="text-danger">*</span></label>
       <input
         id="email"
         type="text"
@@ -38,7 +38,7 @@
     </div>
 
     <div class="mb-3">
-      <label for="birthday">Birthday <span class="text-danger">*</span></label>
+      <label for="birthday">{{ $t('Birthday')}} <span class="text-danger">*</span></label>
       <input
         id="birthday"
         type="date"
@@ -49,7 +49,7 @@
     </div>
 
     <div class="mb-3">
-      <label for="sex">Sex <span class="text-danger">*</span></label>
+      <label for="sex">{{ $t('Sex')}} <span class="text-danger">*</span></label>
       <select
         id="sex"
         class="form-control"
@@ -83,7 +83,7 @@ export default {
   },
   data() {
     return {
-      path: '/clubs/players/'
+      path: '/clubs/users/'
     }
   },
   methods: {

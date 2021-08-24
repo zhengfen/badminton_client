@@ -37,6 +37,11 @@ const routes = [
   },
   // admin 
   {
+    path:'/admin/users', 
+    name:'AdminUsers', 
+    component: () => import('@/views/AdminUsers')
+  },
+  {
     path:'/admin/clubs', 
     name:'AdminClubs',
     component: () => import('@/views/AdminClubs')
@@ -50,11 +55,6 @@ const routes = [
     path:'/admin/positions', 
     name:'AdminPositions',
     component: () => import('@/views/AdminPositions')
-  }, 
-  {
-    path:'/admin/players', 
-    name:'AdminPlayers',
-    component: () => import('@/views/AdminPlayers')
   }, 
   {
     path:'/admin/levels', 

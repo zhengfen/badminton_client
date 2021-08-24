@@ -18,6 +18,7 @@
     "E-Mail Address": "Adresse email",
     "Edit": "Modifier", 
     "Error": "Erreur",
+    "Family name": "Nom",
     "First name": "Prénom",
     "Forbidden": "Interdit",
     "Forgot Your Password?": "Vous avez oublié votre mot de passe ?",
@@ -54,6 +55,7 @@
     "Reset Password": "Réinitialisation du mot de passe",
     "Reset Password Notification": "Notification de réinitialisation du mot de passe",
     "Responsibles":"Responsables",
+    "Search":"Recherche",
     "Send Password Reset Link": "Envoyer le lien de réinitialisation du mot de passe",
     "Service Unavailable": "Service indisponible",
     "Sex":"Sexe",
@@ -106,6 +108,8 @@
     "Number of holiday hours":"Total prise des vacance", 
     "Total meals and km":"Total repas et nombre de km", 
     "Total meals":"Total repas", 
-    "Total km":"Total nombre de km"
+    "Total km":"Total nombre de km", 
+    "User":"Utilisateur", 
+    "Users":"Utilisateurs"
   }
   

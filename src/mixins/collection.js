@@ -9,7 +9,7 @@ export default {
       count: undefined,
       next: undefined,
       previous: undefined,
-      limit: 20,  // default 
+      limit: 16,  // default 
       search_input: '',
       // modal
       showAddModal: false,

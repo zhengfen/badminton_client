@@ -1,7 +1,7 @@
 <template>
   <admin-layout>
     <template v-slot:content>
-      <div class="d-flex mb-2">
+      <div class="d-flex mb-3">
         <strong>{{ $t("Positions") }}</strong>
 
         <!-- filters -->

@@ -1,7 +1,8 @@
 <template>
   <admin-layout>
     <template v-slot:content>
-      <div class="d-flex mb-2">
+      <!-- header: filters and search input-->
+      <div class="d-flex mb-3">
         <strong>{{ $t("Teams") }} </strong>
         <!-- filters -->
         <div class="flex-right-parent ms-auto">
@@ -26,7 +27,7 @@
             value-by="id"
             :close-on-select="true"
             placeholder="Level"
-            :searchable="true"
+            :searchable="false"
             :clear-on-select="true"
             @selected="next_tick_fetch(1)"
           >
@@ -70,6 +71,7 @@
           </button>
         </div>
       </div>
+
       <table class="table table-hover">
         <thead>
           <tr>
