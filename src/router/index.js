@@ -20,7 +20,7 @@ const routes = [
     // beforeEnter: auth,  // this.$router.push({ name: 'Home' }); can only push to routes without beforeEnter; check in beforeCreate() 
   },
   {
-    path: '/club/:id', 
+    path: '/club/:slug', 
     name: 'ClubShow', 
     component: () => import('@/views/ClubShow')
   },
@@ -42,6 +42,11 @@ const routes = [
     component: () => import('@/views/AdminUsers')
   },
   {
+    path:'/admin/contacts', 
+    name:'AdminContacts',
+    component: () => import('@/views/AdminContacts')
+  }, 
+  {
     path:'/admin/clubs', 
     name:'AdminClubs',
     component: () => import('@/views/AdminClubs')
@@ -56,6 +61,7 @@ const routes = [
     name:'AdminPositions',
     component: () => import('@/views/AdminPositions')
   }, 
+  // competitions
   {
     path:'/admin/levels', 
     name:'AdminLevels', 

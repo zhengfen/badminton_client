@@ -31,7 +31,7 @@
     <div class="text-end"> <button
         type="submit"
         class="btn btn-primary"
-      >{{ $t('Submit')}}</button></div>
+      >{{ $t('Save')}}</button></div>
   </form>
 </template>
 

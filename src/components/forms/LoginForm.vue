@@ -37,7 +37,7 @@
       <button
         type="submit"
         class="btn btn-outline-primary"
-      >Me connecter</button>
+      >{{ $t('Login') }}</button>
     </div>
   </form>
 </template>

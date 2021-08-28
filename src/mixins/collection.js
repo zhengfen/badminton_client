@@ -29,7 +29,7 @@ export default {
     fetch(page) {
       axios.get(this.url(page)).then(({ data }) => {
         this.items = data.results;
-        console.log(this.items); 
+        console.log('items', this.items); 
         this.count = data.count;
         this.next = data.next;
         this.previous = data.previous;
@@ -60,7 +60,7 @@ export default {
       this.item_edit = item;
       this.showEditModal = true;
     },
-    update_item() {
+    update_item(data) {
       this.showEditModal = false;
     },
     // delete

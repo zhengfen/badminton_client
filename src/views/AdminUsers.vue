@@ -45,6 +45,7 @@
             <th>{{ $t("Club") }}</th>
             <th>{{ $t("Teams") }}</th>
             <th>{{ $t("Licence") }}</th>
+            <th>{{ $t("Committee") }}</th>
             <th>{{ $t("Action") }}</th>
           </tr>
         </thead>
@@ -67,6 +68,10 @@
               </div>
             </td>
             <td>{{ item.licence }}</td>
+            <td>
+              {{ item.is_staff }}
+              <Toggle v-model="item.is_staff" />
+            </td>
             <td>
               <i
                 class="fas fa-edit text-primary me-2"
@@ -121,7 +126,7 @@
             </button>
           </div>
           <div class="card-body">
-            <user-form mode="new" @created="add_item" />
+            <user-form mode="new" @created="add_item" v-if="false" />
           </div>
         </div>
       </vue-modal>

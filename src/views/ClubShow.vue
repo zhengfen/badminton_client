@@ -5,7 +5,7 @@
       v-slot:content
     >
       <h4>{{ club.name }}</h4>
-      <!-- responsables -->
+      <!-- responsibles -->
       <div class="card mb-5">
         <div class="card-header">
           {{ $t('Responsibles') }}
@@ -13,17 +13,17 @@
         <div class="card-body">
           <table class="table">
             <tr
-              v-for="responsable in responsables"
-              :key="responsable.user_id"
+              v-for="responsible in responsibles"
+              :key="responsible.user_id"
             >
-              <td>{{ responsable.function }}</td>
-              <td>{{ responsable.user.last_name }}</td>
-              <td>{{ responsable.user.first_name }} </td>
-              <td>{{ responsable.user.contact && responsable.user.contact.address }}</td>
-              <td>{{ responsable.user.contact && responsable.user.contact.npa }}</td>
-              <td>{{ responsable.user.contact && responsable.user.contact.city }}</td>
-              <td>{{ responsable.user.contact && responsable.user.contact.phone }}</td>
-              <td>{{ responsable.user.email }}</td>
+              <td>{{ responsible.function }}</td>
+              <td>{{ responsible.user.last_name }}</td>
+              <td>{{ responsible.user.first_name }} </td>
+              <td>{{ responsible.user.contact && responsible.user.contact.address }}</td>
+              <td>{{ responsible.user.contact && responsible.user.contact.npa }}</td>
+              <td>{{ responsible.user.contact && responsible.user.contact.city }}</td>
+              <td>{{ responsible.user.contact && responsible.user.contact.phone }}</td>
+              <td>{{ responsible.user.email }}</td>
             </tr>
           </table>
         </div>
@@ -80,7 +80,7 @@ export default {
     return {
       loaded: false,
       club: null,
-      responsables: [],
+      responsibles: [],
       teams: [],
     }
   },
@@ -95,12 +95,12 @@ export default {
   },
   methods: {
     fetch() {
-      const id = this.$route.params.id;
-      axios.get(`/clubs/clubs/${id}/show`)
+      const slug = this.$route.params.slug;
+      axios.get(`/clubs/club/${slug}`)
         .then(({ data }) => {
           console.log('club data', data);
           this.club = data.club;
-          this.responsables = data.responsables;
+          this.responsibles = data.responsibles;
           this.teams = data.teams;
           this.loaded = true;
         })

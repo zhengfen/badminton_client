@@ -7,7 +7,7 @@
           :key="club.id"
           class="col-md-6"
         >
-          <router-link :to="{name:'ClubShow', params:{id: club.id} }">
+          <router-link :to="{name:'ClubShow', params:{slug: club.slug } }">
             <h5>{{ club.name }}</h5>
           </router-link>
         </div>
@@ -18,6 +18,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   name: 'ClubList',
   data() {

@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="row mb-3">
+      <label for="team_select">{{ $t('Select a team') }}</label>
       <div class="col-8">
         <select
           v-model="selectedTeam"
           class="form-control"
+          id="team_select"
         >
           <option
             v-for="team in team_options()"
@@ -39,7 +41,7 @@
             v-for="position in positions"
             :key="position.id"
             :value="position.id"
-          >{{ position.name }}</option>
+          >{{ trans(position.name) }}</option>
         </select>
       </li>
     </ul>

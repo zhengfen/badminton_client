@@ -19,7 +19,7 @@
         >{{ $t("Clubs") }}</a>
         <ul
           class="collapse list-unstyled"
-          :class="{ show: ['/admin/users','/admin/clubs', '/admin/teams', '/admin/positions', '/admin/players'].includes(pathname)}"
+          :class="{ show: ['/admin/users','/admin/clubs', '/admin/teams', '/admin/positions', '/admin/players', '/admin/contacts'].includes(pathname)}"
           id="clubsSubmenu"
         >
           <li>
@@ -37,6 +37,15 @@
               :class="{'active': ['/admin/users'].includes(pathname)}"
             >
               {{ $t("Users") }}
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/admin/contacts"
+              :class="{'active': ['/admin/contacts'].includes(pathname)}"
+            >
+              {{ $t("Contacts") }}
             </a>
           </li>
 

@@ -1,4 +1,5 @@
 import { mapGetters } from "vuex";
+var slugify = require('slugify')
 
 export default {
   data() {
@@ -6,7 +7,8 @@ export default {
       pathname: window.location.pathname,
       windowWidth: window.innerWidth,
       small: window.innerWidth < 768,
-      development: process.env.NODE_ENV === 'development'      
+      development: process.env.NODE_ENV === 'development', 
+      server: location.hostname == 'localhost' ? 'http://localhost:3000' : 'http://localhost:3000'       
     };
   }, 
   computed: {
@@ -40,6 +42,21 @@ export default {
     },
     goBack() {
       window.history.back();
-    }
+    }, 
+    slug(str){
+      return slugify(str.toLowerCase());
+    }, 
+    // '/media/contacts/EbCtyVlXQAAbPNB.jpg'
+    asset(path){
+      if (path.includes('http')) return path; 
+      return this.server + path;       
+    }, 
+    toFormData: function (obj) {
+      var form_data = new FormData();
+      for (var key in obj) {
+        if (obj[key] !== null && key !== 'image') form_data.append(key, obj[key]);
+      }
+      return form_data;
+    },
   }
 }
