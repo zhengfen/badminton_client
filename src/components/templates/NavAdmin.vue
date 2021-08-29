@@ -92,6 +92,29 @@
         </ul>
       </li>
 
+      <li>
+        <a
+          data-bs-target="#cmsSubmenu"
+          data-bs-toggle="collapse"
+          aria-expanded="false"
+          class="dropdown-toggle"
+        >{{ $t("Content Management") }}</a>
+        <ul
+          class="collapse list-unstyled"
+          :class="{ show: ['/admin/pages', '/admin/albums', '/admin/photos'].includes(pathname)}"
+          id="cmsSubmenu"
+        >
+          <li>
+            <a
+              href="/admin/pages"
+              :class="{'active': ['/admin/pages'].includes(pathname)}"
+            >
+              {{ $t("Pages") }}
+            </a>
+          </li>
+        </ul>
+      </li>
+
     </ul>
 
   </nav>

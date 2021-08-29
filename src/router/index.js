@@ -4,7 +4,7 @@ const routes = [
   {
     path: '/',
     name: 'Root',
-    component: () => import('@/views/ClubIndex'), 
+    component: () => import('@/views/HomePage'), 
     // beforeEnter: auth,  // this.$router.push({ name: 'Home' }); can only push to routes without beforeEnter; check in beforeCreate() 
   },
   {
@@ -61,11 +61,17 @@ const routes = [
     name:'AdminPositions',
     component: () => import('@/views/AdminPositions')
   }, 
-  // competitions
+  /* competitions */
   {
     path:'/admin/levels', 
     name:'AdminLevels', 
     component: () => import('@/views/AdminLevels')
+  }, 
+  /* cms */
+  {
+    path:'/admin/pages', 
+    name:'AdminPages',
+    component: () => import('@/views/AdminPages')
   }
 ]
 

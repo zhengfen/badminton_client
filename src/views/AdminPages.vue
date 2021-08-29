@@ -2,7 +2,7 @@
   <admin-layout>
     <template v-slot:content>
       <div class="d-flex mb-3">
-        <strong>{{ $t("Positions") }}</strong>
+        <strong>{{ $t("Pages") }}</strong>
 
         <!-- filters -->
         <div class="flex-right-parent ms-auto">
@@ -26,7 +26,8 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>{{ $t("Name") }}</th>
+            <th>{{ $t("Title") }}</th>
+            <th>{{ $t("Content") }}</th>
             <th>{{ $t("Action") }}</th>
           </tr>
         </thead>
@@ -34,9 +35,16 @@
           <tr v-for="(item, index) in items" :key="item.id">
             <td>{{ item.id }}</td>
             <td>
-              <template v-if="item.name">
+              <template v-if="item.title">
                 <div v-for="locale of $i18n.availableLocales" :key="locale">
-                  {{ locale }}: {{ item.name[locale] }}
+                  {{ locale }}: {{ item.title[locale] }}
+                </div>
+              </template>
+            </td>
+            <td>
+              <template v-if="item.content">
+                <div v-for="locale of $i18n.availableLocales" :key="locale">
+                  {{ locale }}: {{ item.content[locale] }}
                 </div>
               </template>
             </td>
@@ -67,7 +75,7 @@
       <vue-modal v-model="showAddModal">
         <div class="card" style="width: 600px">
           <div class="card-header">
-            <h3>{{ $t("Add") }} {{ $t("Position") }}</h3>
+            <h3>{{ $t("Add") }} {{ $t("Page") }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showAddModal = false"
@@ -76,7 +84,7 @@
             </button>
           </div>
           <div class="card-body">
-            <position-form mode="new" @created="add_item" />
+            <page-form mode="new" @created="add_item" />
           </div>
         </div>
       </vue-modal>
@@ -85,7 +93,7 @@
       <vue-modal v-model="showEditModal">
         <div class="card" style="width: 600px">
           <div class="card-header">
-            <h3>{{ $t("Edit") }} {{ $t("Position") }}</h3>
+            <h3>{{ $t("Edit") }} {{ $t("Page") }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showEditModal = false"
@@ -94,7 +102,7 @@
             </button>
           </div>
           <div class="card-body">
-            <position-form
+            <page-form
               mode="edit"
               :item_edit="item_edit"
               @updated="update_item"
@@ -108,7 +116,7 @@
       <vue-modal v-model="showDeleteModal">
         <div class="card" style="width: 600px">
           <div class="card-header">
-            <h3>{{ $t("Delete") }} {{ $t("Position") }}</h3>
+            <h3>{{ $t("Delete") }} {{ $t("Page") }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showDeleteModal = false"
@@ -136,7 +144,7 @@ export default {
   mixins: [collection],
   data() {
     return {
-      path: "/clubs/positions",
+      path: "/cms/pages",
     };
   },
 };

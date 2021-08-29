@@ -10,6 +10,13 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.9.3",
+    "@tiptap/extension-image": "^2.0.0-beta.15",
+    "@tiptap/extension-link": "^2.0.0-beta.19",
+    "@tiptap/extension-mention": "^2.0.0-beta.70",
+    "@tiptap/extension-typography": "^2.0.0-beta.14",
+    "@tiptap/extension-underline": "^2.0.0-beta.16",
+    "@tiptap/starter-kit": "^2.0.0-beta.101",
+    "@tiptap/vue-3": "^2.0.0-beta.56",
     "@vueform/toggle": "^2.0.0",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
