@@ -1,7 +1,7 @@
 <template>
   <nav
     id="sidebar"
-    :class="{ active: sidebarActive }"
+    :class="{ active: adminSidebarActive }"
   >
     <div class="sidebar-header">
       <a href="/">
@@ -106,8 +106,8 @@ export default {
     }
   },
   computed: {
-    sidebarActive() {
-      return this.$store.state.layout.sidebarActive;
+    adminSidebarActive() {
+      return this.$store.state.layout.adminSidebarActive;
     }
   }
 }

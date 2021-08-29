@@ -6,6 +6,7 @@ const module = {
     clubs: [],
     teams: [],
     positions: [],
+    roles: []
   },
   mutations: {
     clubsMutation(state, payload) {
@@ -16,6 +17,9 @@ const module = {
     }, 
     positionsMutation(state, payload){
       state.positions = payload; 
+    }, 
+    rolesMutation(state, payload){
+      state.roles = payload; 
     }
   },
   actions: {
@@ -40,6 +44,17 @@ const module = {
             reject(error);
           })
       })
+    }, 
+    async fetchRolesAction({ commit }){
+      return new Promise((resolve, reject) => {
+        axios.get('/clubs/roles/all').then(({ data }) => {
+          commit("rolesMutation", data);
+          resolve(data);
+        })
+          .catch(error => {
+            reject(error);
+          })
+      })
     }
   },
   getters: {
@@ -49,6 +64,10 @@ const module = {
     }, 
     getPositionNameById: (state) => (id) => {
       const item = state.positions.find(elem => elem.id == id); 
+      if (item) return item.name; 
+    }, 
+    getRoleNameById: (state) => (id) => {
+      const item = state.roles.find(elem => elem.id == id); 
       if (item) return item.name; 
     }
   }

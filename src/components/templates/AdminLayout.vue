@@ -10,7 +10,7 @@
           <i
             class="fas fa-bars"
             id="sidebarCollapse"
-            @click="toggleSidebarActive()"
+            @click="toggleAdminSidebarActive()"
           ></i>
 
           <locale-selection />
@@ -33,8 +33,8 @@ export default {
     }
   },
   methods:{
-    toggleSidebarActive(){
-      this.$store.commit('layout/toggleSidebarMutation'); 
+    toggleAdminSidebarActive(){
+      this.$store.commit('layout/toggleAdminSidebarMutation'); 
     }
   }
 

@@ -3,7 +3,7 @@
     v-on:submit.prevent="mode == 'new' ? add() : update()"
     class="container text-start"
   >
-    <!-- if club_id is not defined by props, then select club-->
+    
     <div class="mb-3">
       <label for="first_name"
         >{{ $t("First name") }} <span class="text-danger">*</span></label
@@ -49,10 +49,24 @@
     </div>
 
     <div class="mb-3">
+      <label for="licence">{{ $t("Licence") }}</label>
+      <input id="licence" type="text" class="form-control" v-model="item.licence" />
+    </div>
+
+    <div class="mb-3">
       <label for="club">{{ $t("Club") }}</label>
       <select id="club" class="form-control" v-model="item.club">
         <option v-for="club in clubs" :key="club.id" :value="club.id">
           {{ club.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="role">{{ $t("Role")}}</label>
+      <select id="role" class="form-control" v-model="item.role">
+        <option v-for="role in roles" :key="role.id" :value="role.id">
+          {{ trans(getRoleNameById(role.id))}}
         </option>
       </select>
     </div>
@@ -65,6 +79,8 @@
 
 <script>
 import form from "@/mixins/form";
+import { mapGetters } from 'vuex'; 
+
 export default {
   mixins: [form],
   props: {
@@ -77,6 +93,12 @@ export default {
     clubs() {
       return this.$store.state.clubs.clubs;
     },
+    roles(){
+      return this.$store.state.clubs.roles;
+    }, 
+    ...mapGetters('clubs', [
+      'getRoleNameById'
+    ])
   },
   data() {
     return {

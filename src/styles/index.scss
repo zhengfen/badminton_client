@@ -353,3 +353,44 @@ aside {
 .contact-image{
     height: 140px;
 }
+
+/* overlay */ 
+.screen-overlay {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    background-color: rgba(34, 34, 34, 0.6);
+}
+
+.screen-offcanvas {
+    height: 100%; /* 100% Full-height */
+    width: 350px;
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Stay on top */
+    top: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 1em; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    background-color: #fff;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+/* sidebar*/
+.sidebar-wrapper {
+    position: relative;
+    // padding bottom to avoid iphone bottom bar
+    padding-bottom: 60px;
+    .copyright {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        font-size: 12px;
+    }
+}

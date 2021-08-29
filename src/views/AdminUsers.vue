@@ -45,7 +45,7 @@
             <th>{{ $t("Club") }}</th>
             <th>{{ $t("Teams") }}</th>
             <th>{{ $t("Licence") }}</th>
-            <th>{{ $t("Committee") }}</th>
+            <th>{{ $t("Role") }}</th>
             <th>{{ $t("Action") }}</th>
           </tr>
         </thead>
@@ -69,8 +69,7 @@
             </td>
             <td>{{ item.licence }}</td>
             <td>
-              {{ item.is_staff }}
-              <Toggle v-model="item.is_staff" />
+              {{ trans(getRoleNameById(item.role)) }}
             </td>
             <td>
               <i
@@ -126,7 +125,7 @@
             </button>
           </div>
           <div class="card-body">
-            <user-form mode="new" @created="add_item" v-if="false" />
+            <user-form mode="new" @created="add_item" />
           </div>
         </div>
       </vue-modal>
@@ -196,10 +195,11 @@ export default {
   computed: {
     ...mapState("clubs", ["clubs"]),
     ...mapState("competitions", ["levels"]),
-    ...mapGetters("clubs", ["getClubNameById", "getPositionNameById"]),
+    ...mapGetters("clubs", ["getClubNameById", "getPositionNameById", "getRoleNameById"]),
     ...mapGetters("competitions", ["getLevelNameById"]),
   },
   created() {
+    this.$store.dispatch("clubs/fetchRolesAction"); 
     this.$store.dispatch("clubs/fetchClubsAction");
     this.$store.dispatch("clubs/fetchPositionsAction");
     this.$store.dispatch("competitions/fetchLevelsAction");

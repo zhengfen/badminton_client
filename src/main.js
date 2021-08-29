@@ -52,6 +52,7 @@ app.use(router)
 app.use(store)
 app.use(i18n)
 app.mixin(helper)
+
 // 3rd part
 app.component('vue-select', VueSelect)
 app.component('vue-modal',VueFinalModal)

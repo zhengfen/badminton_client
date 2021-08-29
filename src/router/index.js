@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: () => import('@/views/ClubIndex'), 
+    component: () => import('@/views/HomePage'), 
     // beforeEnter: auth,  // this.$router.push({ name: 'Home' }); can only push to routes without beforeEnter; check in beforeCreate() 
   },
   {
