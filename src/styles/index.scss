@@ -394,3 +394,58 @@ aside {
         font-size: 12px;
     }
 }
+
+/* tip tap */
+// for input
+.tiptap-wrapper {
+    background: white;
+    .ProseMirror {
+        min-height: 100px;
+        padding: 0.375rem 0.75rem;
+    }
+}
+
+.tiptap-menu {
+    button {
+        vertical-align: middle;
+        // width: 1.8rem;
+        // height: 1.2rem;
+        font-weight: 400;
+        display: inline-flex;
+        background: transparent;
+        border: 0;
+        color: #000;
+        padding: 0.2rem 0.5rem;
+        margin-right: 0.2rem;
+        border-radius: 0px;
+        cursor: pointer;
+    }
+
+    border-bottom: 1px solid #707070;
+}
+
+// for input and display
+.ProseMirror {
+    word-wrap: break-word;
+    > * + * {
+        margin-top: 0.75em;
+    }
+    ul,
+    ol {
+        padding: 0 1rem;
+        p {
+            margin-bottom: 0;
+        }
+    }
+    blockquote {
+        padding-left: 1rem;
+        border-left: 2px solid rgba(#0d0d0d, 0.1);
+    }
+    img {
+        max-width: 250px;
+        height: auto;
+        &.ProseMirror-selectednode {
+            outline: 3px solid #68cef8;
+        }
+    }
+}

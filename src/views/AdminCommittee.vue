@@ -2,7 +2,7 @@
   <admin-layout>
     <template v-slot:content>
       <div class="d-flex mb-3">
-        <strong>{{ $t("Pages") }}</strong>
+        <strong>{{ $t("Committee") }}</strong>
 
         <!-- filters -->
         <div class="flex-right-parent ms-auto">
@@ -26,15 +26,18 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>{{ $t("Title") }}</th>            
-            <th>{{ $t("Content") }}</th>  
-            <th>{{ $t("On menu") }}</th>          
+            <th>{{ $t("User") }}</th>
+            <th>{{ $t("Title") }}</th>
+            <th>{{ $t("Image") }}</th>
             <th>{{ $t("Action") }}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in items" :key="item.id">
             <td>{{ item.id }}</td>
+            <td>
+              <user-info :user="item.user" />
+            </td>
             <td>
               <template v-if="item.title">
                 <div v-for="locale of $i18n.availableLocales" :key="locale">
@@ -43,18 +46,17 @@
               </template>
             </td>
             <td>
-              <template v-if="item.content">
-                <div v-for="locale of $i18n.availableLocales" :key="locale">
-                  {{ locale }}: {{ item.content[locale] }}
-                </div>
-              </template>
+              <div class="text-center">
+                <i
+                  class="far fa-image fa-lg pointer"
+                  @click="show_image_modal(item)"
+                ></i>
+              </div>
+
+              <img :src="asset(item.image)" class="committee-image mx-auto d-block" v-if="item.image" />
             </td>
-            <td> <Toggle v-model="item.on_menu" @click="updateAttribute(`/cms/pages/${item.id}/`, 'on_menu', item.on_menu)" /></td>
             <td>
-              <i
-                class="fas fa-edit text-primary me-2"
-                @click="show_edit_modal(item)"
-              >
+              <i class="fas fa-edit text-primary me-2" @click="show_edit_modal(item)">
               </i>
               <i
                 class="fas fa-trash-alt text-danger"
@@ -73,11 +75,25 @@
         @page_changed="fetch"
       />
 
+      <!-- Image Modal -->
+      <my-upload
+        field="image"
+        @crop-upload-success="cropUploadSuccess"
+        @crop-upload-fail="cropUploadFail"
+        v-model="showImageModal"
+        :width="300"
+        :height="300"
+        :url="asset(`/clubs/committee/${item_edit.id}/`)"
+        img-format="png"
+        method="PATCH"
+      ></my-upload>
+      <img :src="imgDataUrl" />
+
       <!-- Add Modal -->
       <vue-modal v-model="showAddModal">
-        <div class="card" style="width: 90vw">
+        <div class="card" style="width: 600px">
           <div class="card-header">
-            <h3>{{ $t("Add") }} {{ $t("Page") }}</h3>
+            <h3>{{ $t("Add") }} {{ $t("Committee") }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showAddModal = false"
@@ -86,16 +102,16 @@
             </button>
           </div>
           <div class="card-body">
-            <page-form mode="new" @created="add_item" />
+            <committee-form mode="new" @created="add_item" />
           </div>
         </div>
       </vue-modal>
 
       <!-- Edit Modal -->
       <vue-modal v-model="showEditModal">
-        <div class="card" style="width: 90vw">
+        <div class="card" style="width: 600px">
           <div class="card-header">
-            <h3>{{ $t("Edit") }} {{ $t("Page") }}</h3>
+            <h3>{{ $t("Edit") }} {{ $t("Committee") }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showEditModal = false"
@@ -104,7 +120,7 @@
             </button>
           </div>
           <div class="card-body">
-            <page-form
+            <committee-form
               mode="edit"
               :item_edit="item_edit"
               @updated="update_item"
@@ -118,7 +134,7 @@
       <vue-modal v-model="showDeleteModal">
         <div class="card" style="width: 600px">
           <div class="card-header">
-            <h3>{{ $t("Delete") }} {{ $t("Page") }}</h3>
+            <h3>{{ $t("Delete") }} {{ $t("Committee") }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showDeleteModal = false"
@@ -142,15 +158,53 @@
 
 <script>
 import collection from "../mixins/collection";
+import myUpload from "vue-image-crop-upload";
 export default {
   mixins: [collection],
   data() {
     return {
-      path: "/cms/pages",
+      path: "/clubs/committee",
+      showImageModal: false,
+      //
+      imgDataUrl: "", // the datebase64 url of created image
     };
+  },
+  components: {
+    "my-upload": myUpload,
+  },
+  methods: {
+    update_item(data) {
+      var item = this.items.find((elem) => elem.id == data.id);
+      item.image = data.image;
+      this.showEditModal = false;
+    },
+    show_image_modal(item) {
+      this.item_edit = item;
+      this.showImageModal = true;
+    },
+    /** */
+    toggleShow() {
+      this.show = !this.show;
+    },  
+    cropUploadSuccess(jsonData, field) {
+      console.log("-------- upload success --------");
+      let item = this.items.find(elem => elem.id == jsonData.id); 
+      item.image = jsonData.image; 
+      this.showImageModal = false; 
+    },
+    /**
+     * upload fail
+     *
+     * [param] status    server api return error status, like 500
+     * [param] field
+     */
+    cropUploadFail(status, field) {
+      console.log("-------- upload fail --------");
+      console.log(status);
+      console.log("field: " + field);
+    },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -31,6 +31,13 @@ export default {
       }
       return '';
     },
+    slug(str){
+      return slugify(str.toLowerCase());
+    }, 
+    slug_trans(value, locale){
+      const str = this.trans(value, locale); 
+      return this.slug(str); 
+    },
     dateDisplay(date) {
       if (date) return moment(date, 'YYYY-MM-DD h:mm:ss').format('DD.MM.YYYY');
     },  
@@ -43,9 +50,6 @@ export default {
     goBack() {
       window.history.back();
     }, 
-    slug(str){
-      return slugify(str.toLowerCase());
-    }, 
     // '/media/contacts/EbCtyVlXQAAbPNB.jpg'
     asset(path){
       if (path.includes('http')) return path; 
@@ -57,6 +61,11 @@ export default {
         if (obj[key] !== null && key !== 'image') form_data.append(key, obj[key]);
       }
       return form_data;
+    },
+    updateAttribute(url, attribute, value) {
+      axios.patch(url, {
+        [attribute]: value
+      });
     },
   }
 }

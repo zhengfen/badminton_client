@@ -15,7 +15,6 @@ const module = {
     openLeftNav(state){
       state.leftNavValue = '0px';
       state.showScreenOverlay = true; 
-      console.log('openLeftNav');
     },
     closeLeftNav(state){
       state.leftNavValue = '-350px';

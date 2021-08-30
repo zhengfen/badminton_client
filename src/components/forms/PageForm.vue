@@ -31,7 +31,7 @@
           >{{ $t('Title')}}</label>
           <input
             type="text"
-            maxlength="160"
+            maxlength="255"
             class="form-control"            
             :id="'title_'+locale"
             v-model="item.title[locale]"
@@ -43,13 +43,11 @@
           <label
             :for="'content_'+locale"
           >{{ $t('Content')}}</label>
-          <input
-            type="text"
-            maxlength="160"
+          <tip-tap
             class="form-control"            
             :id="'content_'+locale"
             v-model="item.content[locale]"
-          >
+          />
         </div>
       </div>
     </div>
@@ -79,7 +77,6 @@ export default {
     init_item(){
       this.item = this.item_edit; 
       if (this.item.title == null) this.item.title = {}; 
-      if (this.item.content == null) this.item.content = {};
     }
   }
 }

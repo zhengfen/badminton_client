@@ -33,7 +33,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('@/views/LoginPage'),
-    hidden: true
+  },
+  {
+    path:'/page/:slug', 
+    name:'PageShow',
+    component: () => import('@/views/PageShow')
   },
   // admin 
   {
@@ -61,6 +65,11 @@ const routes = [
     name:'AdminPositions',
     component: () => import('@/views/AdminPositions')
   }, 
+  {
+    path:'/admin/committee', 
+    name:'AdminCommittee', 
+    component: () => import('@/views/AdminCommittee')
+  },
   /* competitions */
   {
     path:'/admin/levels', 

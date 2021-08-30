@@ -1,15 +1,9 @@
 <template>
   <nav class="sidebar">
     <ul class="list-unstyled">
-      <li class="nav-item">
-        <router-link :to="{ name: 'Home' }" class="nav-link" @click="closeNav">
-          {{ $t("Home") }}
-        </router-link>
-      </li>
-
-      <li class="nav-item">
-        <router-link :to="{ name: 'Clubs' }" class="nav-link" @click="closeNav">
-          {{ $t("Clubs") }}
+      <li class="nav-item" v-for="page in pages" :key="page.id">
+        <router-link :to="{ name: 'PageShow', params: {slug: slug_trans(page.title)} }" class="nav-link" @click="closeNav">
+          {{ trans(page.title) }}
         </router-link>
       </li>
 
@@ -33,7 +27,16 @@
 </template>
 
 <script>
+
 export default {
+  created(){
+    this.$store.dispatch('cms/fetchPagesAction'); 
+  },
+  computed: {
+    pages(){
+      return this.$store.state.cms.pages; 
+    }
+  },
   methods: {
     closeNav() {
       this.$store.commit("layout/closeNav");

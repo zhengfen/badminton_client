@@ -1,4 +1,5 @@
 import axios from 'axios'
+var slugify = require('slugify')
 
 const module = {
   namespaced: true, 
@@ -27,7 +28,15 @@ const module = {
     getPageById: (state) => (id) => {
       const item = state.pages.find(elem => elem.id == id); 
       if (item) return item; 
-    }
+    },
+    getPageBySlug: (state) => (slug) => {      
+      for (const page of state.pages) {
+        const titles = Object.values(page.title); 
+        for (const title of titles) {
+          if (slugify(title.toLowerCase()) == slug.toLowerCase()) return page;
+        }
+      }
+    },
   }
 }
 
