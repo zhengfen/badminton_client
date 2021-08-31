@@ -101,7 +101,7 @@
         </ul>
       </li>
 
-      <li>
+      <li class="dropdown">
         <a
           data-bs-target="#cmsSubmenu"
           data-bs-toggle="collapse"
@@ -123,9 +123,7 @@
           </li>
         </ul>
       </li>
-
     </ul>
-
   </nav>
 </template>
 

@@ -223,13 +223,13 @@ export default {
   },
   methods: {
     addImage() {
-      const url = window.prompt("URL");
+      const url = window.prompt("URL img");
       if (url) {
         this.editor.chain().focus().setImage({ src: url }).run();
       }
     },
     setLink() {
-      const url = window.prompt("URL img");
+      const url = window.prompt("URL link");
       this.editor.chain().focus().setLink({ href: url }).run();
     },
   },

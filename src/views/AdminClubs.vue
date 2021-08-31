@@ -2,7 +2,7 @@
   <admin-layout>
     <template v-slot:content>
       <div class="d-flex mb-3">
-        <strong>{{ $t('Clubs')}}</strong>
+        <strong>{{ $t("Clubs") }}</strong>
 
         <!-- filters -->
         <div class="flex-right-parent ms-auto">
@@ -13,13 +13,12 @@
             placeholder="recherche"
             v-on:keyup.enter="fetch(1)"
             class="search-input"
-          >
+          />
 
           <!-- add button -->
-          <button
-            class="btn btn-info btn-sm"
-            @click="showAddModal=true"
-          ><i class="fas fa-plus"></i></button>
+          <button class="btn btn-info btn-sm" @click="showAddModal = true">
+            <i class="fas fa-plus"></i>
+          </button>
         </div>
       </div>
 
@@ -27,26 +26,28 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>{{ $t('Name') }}</th>
-            <th>{{ $t('City') }}</th>
-            <th>{{ $t('Slug') }}</th>
-            <th>{{ $t('Action') }}</th>
+            <th>{{ $t("Name") }}</th>
+            <th>{{ $t("City") }}</th>
+            <th>{{ $t("Slug") }}</th>
+            <th>{{ $t("Description") }}</th>
+            <th>{{ $t("Action") }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(item, index) in items"
-            :key="item.id"
-          >
+          <tr v-for="(item, index) in items" :key="item.id">
             <td>{{ item.id }}</td>
-            <td>{{ item.name}}</td>
-            <td>{{ item.city}}</td>
-            <td>{{ item.slug}}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.city }}</td>
+            <td>{{ item.slug }}</td>
             <td>
-              <i
-                class="fas fa-edit text-primary me-2"
-                @click="show_edit_modal(item)"
-              >
+              <template v-if="item.description">
+                <div v-for="locale of $i18n.availableLocales" :key="locale">
+                  {{ locale }}: {{ item.description[locale] }}
+                </div>
+              </template>
+            </td>
+            <td>
+              <i class="fas fa-edit text-primary me-2" @click="show_edit_modal(item)">
               </i>
               <i
                 class="fas fa-trash-alt text-danger"
@@ -66,43 +67,34 @@
       />
 
       <!-- Add Modal -->
-      <vue-modal
-        v-model="showAddModal"
-      >
-        <div
-          class="card"
-          style="width:600px;"
-        >
+      <vue-modal v-model="showAddModal">
+        <div class="card" style="width: 90vw">
           <div class="card-header">
-            <h3>{{ $t('Add') }} {{ $t('Club') }}</h3>
+            <h3>{{ $t("Add") }} {{ $t("Club") }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showAddModal = false"
-            >&times;</button>
+            >
+              &times;
+            </button>
           </div>
           <div class="card-body">
-            <club-form
-              mode="new"
-              @created="add_item"
-            />
+            <club-form mode="new" @created="add_item" />
           </div>
         </div>
       </vue-modal>
 
       <!-- Edit Modal -->
-      <vue-modal
-        v-model="showEditModal"
-      >
-        <div
-          class="card"
-          style="width:600px;"
-        >
+      <vue-modal v-model="showEditModal">
+        <div class="card" style="width: 90vw">
           <div class="card-header">
-            <h3>{{ $t('Edit') }} {{ $t('Club') }}</h3>
+            <h3>{{ $t("Edit") }} {{ $t("Club") }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showEditModal = false"
-            >&times;</button>
+            >
+              &times;
+            </button>
           </div>
           <div class="card-body">
             <club-form
@@ -117,24 +109,22 @@
 
       <!-- Delete Modal -->
       <vue-modal v-model="showDeleteModal">
-        <div
-          class="card"
-          style="width:600px;"
-        >
+        <div class="card" style="width: 600px">
           <div class="card-header">
-            <h3>{{ $t('Delete') }} {{ $t('Club') }}</h3>
+            <h3>{{ $t("Delete") }} {{ $t("Club") }}</h3>
             <button
               class="btn btn-secondary btn-sm ms-auto"
               @click="showDeleteModal = false"
-            >&times;</button>
+            >
+              &times;
+            </button>
           </div>
           <div class="card-body">
-            <p>{{ $t('Please confirm') }}</p>
+            <p>{{ $t("Please confirm") }}</p>
             <div class="text-end">
-              <button
-                class="btn btn-primary"
-                @click="delete_item"
-              >{{ $t('Confirm') }}</button>
+              <button class="btn btn-primary" @click="delete_item">
+                {{ $t("Confirm") }}
+              </button>
             </div>
           </div>
         </div>
@@ -144,16 +134,15 @@
 </template>
 
 <script>
-import collection from '../mixins/collection';
+import collection from "../mixins/collection";
 export default {
   mixins: [collection],
   data() {
     return {
-      path: '/clubs/clubs',
-    }
-  }
-}
+      path: "/clubs/clubs",
+    };
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

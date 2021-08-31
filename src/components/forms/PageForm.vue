@@ -69,14 +69,14 @@ export default {
       item: {
         title: {}, 
         content: {}
-      }, 
-      active_locale: this.$i18n.locale,
+      },       
     }
   }, 
   methods:{
     init_item(){
       this.item = this.item_edit; 
       if (this.item.title == null) this.item.title = {}; 
+      if (this.item.content == null) this.item.content = {}; 
     }
   }
 }

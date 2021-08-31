@@ -6,7 +6,8 @@ const module = {
     clubs: [],
     teams: [],
     positions: [],
-    roles: []
+    roles: [], 
+    committee: []
   },
   mutations: {
     clubsMutation(state, payload) {
@@ -20,6 +21,9 @@ const module = {
     }, 
     rolesMutation(state, payload){
       state.roles = payload; 
+    }, 
+    committeeMutation(state, payload){
+      state.committee = payload;
     }
   },
   actions: {
@@ -55,7 +59,18 @@ const module = {
             reject(error);
           })
       })
-    }
+    },
+    async fetchCommitteeAction({ commit }, payload){
+      return new Promise((resolve, reject) => {
+        axios.get('/clubs/committee/all', { params: payload }).then(({ data }) => {
+          commit("committeeMutation", data);
+          resolve(data);
+        })
+          .catch(error => {
+            reject(error);
+          })
+      })
+    },
   },
   getters: {
     getClubNameById: (state) => (id) => {

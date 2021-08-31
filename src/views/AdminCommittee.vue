@@ -26,7 +26,8 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>{{ $t("User") }}</th>
+            <th>{{ $t("User") }}</th>            
+            <th>{{ $t("Subject") }}</th>
             <th>{{ $t("Title") }}</th>
             <th>{{ $t("Image") }}</th>
             <th>{{ $t("Action") }}</th>
@@ -38,6 +39,7 @@
             <td>
               <user-info :user="item.user" />
             </td>
+            <td>{{ item.subject_type }} {{ item.subject_id }}</td>
             <td>
               <template v-if="item.title">
                 <div v-for="locale of $i18n.availableLocales" :key="locale">
@@ -46,16 +48,14 @@
               </template>
             </td>
             <td>
-              <div class="text-center">
-                <i
-                  class="far fa-image fa-lg pointer"
-                  @click="show_image_modal(item)"
-                ></i>
-              </div>
-
-              <img :src="asset(item.image)" class="committee-image mx-auto d-block" v-if="item.image" />
+              <img
+                :src="asset(item.image)"
+                class="committee-image mx-auto d-block"
+                v-if="item.image"
+              />
             </td>
             <td>
+              <i class="far fa-image text-primary pointer me-2" @click="show_image_modal(item)"></i>
               <i class="fas fa-edit text-primary me-2" @click="show_edit_modal(item)">
               </i>
               <i
@@ -81,11 +81,15 @@
         @crop-upload-success="cropUploadSuccess"
         @crop-upload-fail="cropUploadFail"
         v-model="showImageModal"
-        :width="300"
-        :height="300"
+        :width="200"
+        :height="250"
         :url="asset(`/clubs/committee/${item_edit.id}/`)"
         img-format="png"
         method="PATCH"
+        :noCircle="true"
+        :noSquare="true"
+        :langType="$i18n.locale"
+        :key="cropUploadKey"
       ></my-upload>
       <img :src="imgDataUrl" />
 
@@ -165,8 +169,8 @@ export default {
     return {
       path: "/clubs/committee",
       showImageModal: false,
-      //
       imgDataUrl: "", // the datebase64 url of created image
+      cropUploadKey: 0,  // to reset the crop-upload step
     };
   },
   components: {
@@ -182,15 +186,11 @@ export default {
       this.item_edit = item;
       this.showImageModal = true;
     },
-    /** */
-    toggleShow() {
-      this.show = !this.show;
-    },  
     cropUploadSuccess(jsonData, field) {
-      console.log("-------- upload success --------");
-      let item = this.items.find(elem => elem.id == jsonData.id); 
-      item.image = jsonData.image; 
-      this.showImageModal = false; 
+      let item = this.items.find((elem) => elem.id == jsonData.id);
+      item.image = jsonData.image;
+      this.showImageModal = false;
+      this.cropUploadKey++;
     },
     /**
      * upload fail

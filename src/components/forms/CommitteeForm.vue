@@ -3,9 +3,18 @@
     v-on:submit.prevent="mode == 'new' ? add() : update()"
     class="container text-start"
   >
+  
     <div class="mb-3" v-if="mode == 'new'">
       <label for="user">{{ $t("User") }}</label>
       <user-select v-model="user" input_class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label for="subject_type">{{ $t('Subject')}}</label>
+      <select name="subject_type" id="subejct_type" v-model="item.subject_type" class="form-control">
+        <option value="Association">{{ $t('Association') }}</option>
+        <option value="Club">{{ $t('Club') }}</option>
+      </select>
     </div>
   
     <!-- translable fields -->
@@ -90,8 +99,9 @@ export default {
     update() {
       const payload = JSON.parse(JSON.stringify(this.item))
       if (this.user) payload.user = this.user.id;
+      delete payload.image; // bad request. Image is not file
       axios
-        .put(this.path + `${this.item.id}/`, payload)
+        .patch(this.path + `${this.item.id}/`, payload)
         .then(({ data }) => {
           this.$emit("updated", data);
         })

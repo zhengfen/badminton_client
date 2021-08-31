@@ -28,6 +28,44 @@
       >
     </div>    
 
+        <!-- translable fields -->
+    <ul class="nav nav-tabs mb-3">
+      <li
+        v-for="locale of $i18n.availableLocales"
+        :key="locale"
+        @click="active_locale = locale"
+      >
+        <a
+          data-toggle="tab"
+          :href="'#tab_' + locale"
+          class="nav-link text-uppercase"
+          :class="{ active : active_locale==locale }"
+        >{{ locale }}</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div
+        v-for="locale of $i18n.availableLocales"
+        :key="locale"
+        :id="'tab_' + locale"
+        class="tab-pane fade"
+        :class="{ show : active_locale==locale, active: active_locale==locale}"
+      >
+        <!-- description -->
+        <div class="mb-3">
+          <label
+            :for="'description_'+locale"
+          >{{ $t('Description')}}</label>
+          <tip-tap
+            class="form-control"            
+            :id="'description_'+locale"
+            v-model="item.description[locale]"
+          />
+        </div>
+      </div>
+    </div>
+
     <div class="text-end"> <button
         type="submit"
         class="btn btn-primary"
@@ -42,6 +80,15 @@ export default {
   data(){
     return {
       path: '/clubs/clubs/',
+      item: {
+        description: {}, 
+      },   
+    }
+  }, 
+    methods:{
+    init_item(){
+      this.item = this.item_edit; 
+      if (this.item.description == null) this.item.description = {}; 
     }
   }
 }

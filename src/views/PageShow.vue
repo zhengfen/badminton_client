@@ -6,6 +6,9 @@
         v-if="page"
       >
         <div v-html="trans(page.content)" />
+        <committee-page v-if="page.id==2" />
+        <clubs-page v-if="page.id==3" />
+        {{ page }}
       </div>
     </template>    
   </app-layout>

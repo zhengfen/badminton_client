@@ -5,6 +5,8 @@
       v-slot:content
     >
       <h4>{{ club.name }}</h4>
+
+      <div v-html="trans(club.description)" />
       <!-- responsibles -->
       <div class="card mb-5">
         <div class="card-header">

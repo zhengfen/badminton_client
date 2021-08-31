@@ -13,6 +13,7 @@ export default {
     return {
       item: {},
       path: '/clubs/clubs/',
+      active_locale: this.$i18n.locale,  // for translatable fields
     }
   },
   created() {
