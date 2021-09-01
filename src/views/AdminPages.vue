@@ -75,7 +75,7 @@
 
       <!-- Add Modal -->
       <vue-modal v-model="showAddModal">
-        <div class="card" style="width: 90vw">
+        <div class="card modal-wrapper" style="width: 90vw">
           <div class="card-header">
             <h3>{{ $t("Add") }} {{ $t("Page") }}</h3>
             <button
@@ -93,7 +93,7 @@
 
       <!-- Edit Modal -->
       <vue-modal v-model="showEditModal">
-        <div class="card" style="width: 90vw">
+        <div class="card modal-wrapper" style="width: 90vw">
           <div class="card-header">
             <h3>{{ $t("Edit") }} {{ $t("Page") }}</h3>
             <button

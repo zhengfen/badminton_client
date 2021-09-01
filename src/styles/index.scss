@@ -442,3 +442,9 @@ aside {
         }
     }
 }
+
+// modal 
+.modal-wrapper{
+    max-height: 98vh; 
+    overflow-y: auto;   // scrollable
+}
