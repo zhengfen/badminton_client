@@ -39,6 +39,7 @@
     "vue-next-select": "^2.9.0",
     "vue-router": "^4.0.6",
     "vue-toastification": "^2.0.0-rc.1",
+    "vue3-dropzone": "^0.0.7",
     "vue3-popper": "^1.2.1",
     "vuex": "^4.0.2"
   },

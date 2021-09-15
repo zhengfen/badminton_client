@@ -121,6 +121,14 @@
               {{ $t("Pages") }}
             </a>
           </li>
+          <li>
+            <a
+              href="/admin/albums"
+              :class="{'active': ['/admin/albums'].includes(pathname)}"
+            >
+              {{ $t("Albums") }}
+            </a>
+          </li>
         </ul>
       </li>
     </ul>

@@ -75,6 +75,11 @@ const routes = [
     path:'/admin/pages', 
     name:'AdminPages',
     component: () => import('@/views/AdminPages')
+  }, 
+  {
+    path:'/admin/albums', 
+    name:'AdminAlbums',
+    component: () => import('@/views/AdminAlbums')
   }
 ]
 
